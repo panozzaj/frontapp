@@ -81,12 +81,8 @@ module Frontapp
     end
 
     def get_raw(path)
-      headers_copy = @headers.dup
-      res = @headers.get("#{base_url}#{path}")
-      if !res.status.success?
-        raise Error.from_response(res)
-      end
-      res
+      # not positive this is correct
+      connection.get("#{base_url}#{path}")
     end
 
     def create(path, body)
