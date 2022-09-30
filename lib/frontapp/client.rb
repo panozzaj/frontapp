@@ -94,10 +94,7 @@ module Frontapp
     end
 
     def update(path, body)
-      res = @headers.patch("#{base_url}#{path}", json: body)
-      if !res.status.success?
-        raise Error.from_response(res)
-      end
+      connection.patch("#{base_url}#{path}", body).body
     end
 
     def delete(path, body = {})
