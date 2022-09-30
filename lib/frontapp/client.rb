@@ -77,12 +77,7 @@ module Frontapp
     end
 
     def get_plain(path)
-      headers_copy = @headers.dup
-      res = @headers.accept("text/plain").get("#{base_url}#{path}")
-      if !res.status.success?
-        raise Error.from_response(res)
-      end
-      res.to_s
+      connection.get("#{base_url}#{path}", nil, Accept: 'text/plain').body
     end
 
     def get_raw(path)
