@@ -1,6 +1,7 @@
 require 'uri'
 require 'http'
 require 'json'
+require 'faraday'
 require_relative 'client/attachments.rb'
 require_relative 'client/channels.rb'
 require_relative 'client/comments.rb'
@@ -40,13 +41,15 @@ module Frontapp
     include Frontapp::Client::Links
     include Frontapp::Client::Exports
 
+    attr_accessor :connection
+
     def initialize(options={})
-      auth_token = options[:auth_token]
-      user_agent = options[:user_agent] || "Frontapp Ruby Gem #{VERSION}"
+      @auth_token = options[:auth_token]
+      @user_agent = options[:user_agent] || "Frontapp Ruby Gem #{VERSION}"
       @headers = HTTP.headers({
         Accept: "application/json",
-        Authorization: "Bearer #{auth_token}",
-        "User-Agent": user_agent
+        Authorization: "Bearer #{@auth_token}",
+        "User-Agent": @user_agent
       })
     end
 
@@ -56,11 +59,8 @@ module Frontapp
       query = format_query(params)
       url = "#{base_url}#{path}?#{query}"
       until last_page
-        res = @headers.get(url)
-        if !res.status.success?
-          raise Error.from_response(res)
-        end
-        response = JSON.parse(res.to_s)
+        res = connection.get(url)
+        response = JSON.parse(res.body)
         items.concat(response["_results"]) if response["_results"]
         pagination = response["_pagination"]
         if pagination.nil? || pagination["next"].nil?
@@ -129,6 +129,7 @@ module Frontapp
     end
 
   private
+
     def format_query(params)
       res = []
       q = params.delete(:q)
@@ -152,5 +153,19 @@ module Frontapp
       "https://api2.frontapp.com/"
     end
 
+    def connection
+      @connection ||= Faraday.new(
+        url: base_url,
+        headers: {
+          Accept: 'application/json',
+          Authorization: "Bearer #{@auth_token}",
+          'User-Agent': @user_agent
+        }
+      ) do |c|
+        c.response :raise_error
+        c.response :json
+        c.adapter Faraday.default_adapter
+      end
+    end
   end
 end

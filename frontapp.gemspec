@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/phusion/frontapp'
   s.license     = 'MIT'
   s.add_dependency 'http', '>= 2.2.1'
+  s.add_dependency 'faraday', '>= 2.0.0'
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'webmock'
   s.add_development_dependency 'rake', '~> 12.0'
