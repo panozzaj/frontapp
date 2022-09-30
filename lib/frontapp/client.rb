@@ -86,12 +86,7 @@ module Frontapp
     end
 
     def create(path, body)
-      res = @headers.post("#{base_url}#{path}", json: body)
-      response = JSON.parse(res.to_s)
-      if !res.status.success?
-        raise Error.from_response(res)
-      end
-      response
+      connection.post("#{base_url}#{path}", body).body
     end
 
     def create_without_response(path, body)
@@ -150,6 +145,8 @@ module Frontapp
           'User-Agent': @user_agent
         }
       ) do |c|
+        c.request :json
+
         c.response :raise_error
       end
     end
