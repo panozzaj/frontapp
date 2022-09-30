@@ -90,10 +90,7 @@ module Frontapp
     end
 
     def create_without_response(path, body)
-      res = @headers.post("#{base_url}#{path}", json: body)
-      if !res.status.success?
-        raise Error.from_response(res)
-      end
+      connection.post("#{base_url}#{path}", body).body
     end
 
     def update(path, body)
