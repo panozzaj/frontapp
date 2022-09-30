@@ -17,7 +17,7 @@ RSpec.describe "Errors" do
 
     expect do
       frontapp.get_contact(1)
-    end.to raise_error(Frontapp::BadRequestError)
+    end.to raise_error(Faraday::BadRequestError)
   end
 
   it "can raise a not found error" do
@@ -27,7 +27,7 @@ RSpec.describe "Errors" do
 
     expect do
       frontapp.get_contact(1)
-    end.to raise_error(Frontapp::NotFoundError)
+    end.to raise_error(Faraday::ResourceNotFound)
   end
 
   it "can raise a conflict error" do
@@ -37,7 +37,7 @@ RSpec.describe "Errors" do
 
     expect do
       frontapp.get_contact(1)
-    end.to raise_error(Frontapp::ConflictError)
+    end.to raise_error(Faraday::ConflictError)
   end
 
   it "can raise a too many requests error" do
@@ -47,6 +47,6 @@ RSpec.describe "Errors" do
 
     expect do
       frontapp.get_contact(1)
-    end.to raise_error(Frontapp::TooManyRequestsError)
+    end.to raise_error(Faraday::ClientError)
   end
 end

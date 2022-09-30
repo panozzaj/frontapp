@@ -73,11 +73,7 @@ module Frontapp
     end
 
     def get(path)
-      res = @headers.get("#{base_url}#{path}")
-      if !res.status.success?
-        raise Error.from_response(res)
-      end
-      JSON.parse(res.to_s)
+      JSON.parse(connection.get("#{base_url}#{path}").body)
     end
 
     def get_plain(path)
@@ -159,12 +155,11 @@ module Frontapp
         headers: {
           Accept: 'application/json',
           Authorization: "Bearer #{@auth_token}",
+          'Content-Type': 'application/json',
           'User-Agent': @user_agent
         }
       ) do |c|
         c.response :raise_error
-        c.response :json
-        c.adapter Faraday.default_adapter
       end
     end
   end
