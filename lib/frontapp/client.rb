@@ -98,9 +98,8 @@ module Frontapp
     end
 
     def delete(path, body = {})
-      res = @headers.delete("#{base_url}#{path}", json: body)
-      if !res.status.success?
-        raise Error.from_response(res)
+      connection.delete("#{base_url}#{path}") do |req|
+        req.body = body
       end
     end
 
