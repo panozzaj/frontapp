@@ -46,11 +46,6 @@ module Frontapp
     def initialize(options={})
       @auth_token = options[:auth_token]
       @user_agent = options[:user_agent] || "Frontapp Ruby Gem #{VERSION}"
-      @headers = HTTP.headers({
-        Accept: "application/json",
-        Authorization: "Bearer #{@auth_token}",
-        "User-Agent": @user_agent
-      })
     end
 
     def list(path, params = {})
