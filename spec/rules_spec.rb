@@ -2,13 +2,6 @@ require 'spec_helper'
 require 'frontapp'
 
 RSpec.describe 'Rules' do
-
-  let(:headers) {
-    {
-      "Accept" => "application/json",
-      "Authorization" => "Bearer #{auth_token}",
-    }
-  }
   let(:frontapp) { Frontapp::Client.new(auth_token: auth_token) }
   let(:rule_id) { "rul_55c8c149" }
   let(:all_rules_response) {

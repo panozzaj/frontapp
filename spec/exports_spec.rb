@@ -2,13 +2,6 @@ require 'spec_helper'
 require 'frontapp'
 
 RSpec.describe 'Exports' do
-
-  let(:headers) {
-    {
-      "Accept" => "application/json",
-      "Authorization" => "Bearer #{auth_token}",
-    }
-  }
   let(:frontapp) { Frontapp::Client.new(auth_token: auth_token) }
   let(:export_id) { "exp_55c8c149" }
   let(:team_id) { "tim_55c8c149" }

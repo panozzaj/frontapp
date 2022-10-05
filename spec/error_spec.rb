@@ -2,12 +2,6 @@ require "spec_helper"
 require "frontapp"
 
 RSpec.describe "Errors" do
-  let(:headers) {
-    {
-      "Accept" => "application/json",
-      "Authorization" => "Bearer #{auth_token}",
-    }
-  }
   let(:frontapp) { Frontapp::Client.new(auth_token: auth_token) }
 
   it "can raise a bad request error" do

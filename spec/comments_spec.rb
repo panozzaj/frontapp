@@ -2,13 +2,6 @@ require 'spec_helper'
 require 'frontapp'
 
 RSpec.describe 'Comments' do
-
-  let(:headers) {
-    {
-      "Accept" => "application/json",
-      "Authorization" => "Bearer #{auth_token}",
-    }
-  }
   let(:frontapp) { Frontapp::Client.new(auth_token: auth_token) }
   let(:conversation_id) { "cnv_55c8c149" }
   let(:comment_id) { "com_55c8c149" }

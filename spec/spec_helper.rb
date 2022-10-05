@@ -111,3 +111,21 @@ end
 def auth_token
   "test_token"
 end
+
+def headers
+  {
+    'Accept' => 'application/json',
+    'Authorization' => "Bearer #{auth_token}",
+    'Content-Type' => 'application/json',
+    'User-Agent' => "Frontapp Ruby Gem #{Frontapp::VERSION}",
+  }
+end
+
+# Technically these are different from the request headers, but since all we
+# care about is the 'Content-Type', so that we parse JSON, can use `headers` to
+# keep things simple.
+#def response_headers
+#  {
+#    'Content-Type' => 'application/json',
+#  }
+#end

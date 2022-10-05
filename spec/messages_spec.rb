@@ -2,13 +2,6 @@ require 'spec_helper'
 require 'frontapp'
 
 RSpec.describe 'Messages' do
-
-  let(:headers) {
-    {
-      "Accept" => "application/json",
-      "Authorization" => "Bearer #{auth_token}",
-    }
-  }
   let(:frontapp) { Frontapp::Client.new(auth_token: auth_token) }
   let(:message_id) { "msg_55c8c149" }
   let(:channel_id) { "cha_55c8c149" }
@@ -103,15 +96,14 @@ RSpec.describe 'Messages' do
       to_return(status: 200, body: get_message_response)
     frontapp.get_message(message_id)
   end
-  
+
   it "can get a specific message source" do
-    headers['Accept'] = 'text/plain'
     stub_request(:get, "#{base_url}/messages/#{message_id}").
-      with( headers: headers).
+      with( headers: headers.merge('Accept' => 'text/plain')).
       to_return(status: 200, body: message_source)
     frontapp.get_message_source(message_id)
   end
-  
+
   it "can send a message from a channel" do
     data = {
       author_id: "alt:email:leela@planet-exress.com",

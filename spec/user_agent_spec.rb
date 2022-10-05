@@ -2,12 +2,6 @@ require 'spec_helper'
 require 'frontapp'
 
 RSpec.describe 'User agent' do
-  let(:headers) {
-    {
-      "Accept" => "application/json",
-      "Authorization" => "Bearer #{auth_token}",
-    }
-  }
   let(:create_tag_data) {
     {name: "New tag name"}
   }
@@ -30,7 +24,7 @@ RSpec.describe 'User agent' do
     stub_request(:post, "#{base_url}/tags").
       with(
         body: create_tag_data.to_json,
-        headers: headers.merge("User-Agent": "Frontapp Ruby Gem #{Frontapp::VERSION}")).
+        headers: headers).
       to_return(status: 201, body: create_tag_response)
     frontapp = Frontapp::Client.new(auth_token: auth_token)
     expect do
@@ -43,7 +37,7 @@ RSpec.describe 'User agent' do
     stub_request(:post, "#{base_url}/tags").
       with(
         body: create_tag_data.to_json,
-        headers: headers.merge("User-Agent": user_agent)).
+        headers: headers).
       to_return(status: 201, body: create_tag_response)
     frontapp = Frontapp::Client.new(auth_token: auth_token, user_agent: user_agent)
     expect do
