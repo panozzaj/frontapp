@@ -151,7 +151,11 @@ RSpec.describe 'Comments' do
   it "can get all comments of a conversation" do
     stub_request(:get, "#{base_url}/conversations/#{conversation_id}/comments").
       with( headers: headers).
-      to_return(status: 200, body: get_conversation_comments_response)
+      to_return(
+        status: 200,
+        body: get_conversation_comments_response,
+        headers: headers,
+      )
     frontapp.get_conversation_comments(conversation_id)
   end
 

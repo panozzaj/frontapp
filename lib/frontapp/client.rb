@@ -54,8 +54,7 @@ module Frontapp
       query = format_query(params)
       url = "#{base_url}#{path}?#{query}"
       until last_page
-        res = connection.get(url)
-        response = JSON.parse(res.body)
+        response = connection.get(url).body
         items.concat(response["_results"]) if response["_results"]
         pagination = response["_pagination"]
         if pagination.nil? || pagination["next"].nil?
@@ -68,7 +67,7 @@ module Frontapp
     end
 
     def get(path)
-      JSON.parse(connection.get("#{base_url}#{path}").body)
+      connection.get("#{base_url}#{path}").body
     end
 
     def get_plain(path)
@@ -127,14 +126,14 @@ module Frontapp
       @connection ||= Faraday.new(
         url: base_url,
         headers: {
-          Accept: 'application/json',
-          Authorization: "Bearer #{@auth_token}",
-          'Content-Type': 'application/json',
-          'User-Agent': @user_agent
+          'Accept' => 'application/json',
+          'Authorization' => "Bearer #{@auth_token}",
+          'Content-Type' => 'application/json',
+          'User-Agent' => @user_agent,
         }
       ) do |c|
         c.request :json
-
+        c.response :json
         c.response :raise_error
       end
     end

@@ -133,7 +133,11 @@ RSpec.describe 'Topics' do
   it "can get all topic conversations" do
     stub_request(:get, "#{base_url}/links/#{topic_id}/conversations").
       with( headers: headers).
-      to_return(status: 200, body: topic_conversations_response)
+      to_return(
+        status: 200,
+        body: topic_conversations_response,
+        headers: headers,
+      )
     frontapp.get_topic_conversations(topic_id)
   end
 end

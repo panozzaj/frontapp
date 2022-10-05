@@ -529,7 +529,11 @@ RSpec.describe 'Conversations' do
   it "can list all conversations" do
     stub_request(:get, "#{base_url}/conversations").
       with( headers: headers).
-      to_return(status: 200, body: all_conversations_response)
+      to_return(
+        status: 200,
+        body: all_conversations_response,
+        headers: headers,
+      )
     frontapp.conversations
   end
 
@@ -564,21 +568,33 @@ RSpec.describe 'Conversations' do
   it "can get all the followers of a conversation" do
     stub_request(:get, "#{base_url}/conversations/#{conversation_id}/followers").
       with( headers: headers).
-      to_return(status: 200, body: get_conversation_followers_response)
+      to_return(
+        status: 200,
+        body: get_conversation_followers_response,
+        headers: headers,
+      )
     frontapp.get_conversation_followers(conversation_id)
   end
 
   it "can get all events for a conversation" do
     stub_request(:get, "#{base_url}/conversations/#{conversation_id}/events").
       with( headers: headers).
-      to_return(status: 200, body: get_conversation_events_response)
+      to_return(
+        status: 200,
+        body: get_conversation_events_response,
+        headers: headers,
+      )
     frontapp.get_conversation_events(conversation_id)
   end
 
   it "can get all messages in a conversation" do
     stub_request(:get, "#{base_url}/conversations/#{conversation_id}/messages").
       with( headers: headers).
-      to_return(status: 200, body: get_conversation_messages_response)
+      to_return(
+        status: 200,
+        body: get_conversation_messages_response,
+        headers: headers,
+      )
     frontapp.get_conversation_messages(conversation_id)
   end
 

@@ -312,7 +312,11 @@ RSpec.describe 'Contacts' do
   it "can get all contacts" do
     stub_request(:get, "#{base_url}/contacts").
       with( headers: headers).
-      to_return(status: 200, body: all_contacts_response)
+      to_return(
+        status: 200,
+        body: all_contacts_response,
+        headers: headers,
+      )
     frontapp.contacts
   end
 
@@ -381,7 +385,11 @@ RSpec.describe 'Contacts' do
   it "can get all contact's conversations" do
     stub_request(:get, "#{base_url}/contacts/#{contact_id}/conversations").
       with( headers: headers).
-      to_return(status: 200, body: get_contact_conversations_response)
+      to_return(
+        status: 200,
+        body: get_contact_conversations_response,
+        headers: headers,
+      )
     frontapp.get_contact_conversations(contact_id)
   end
 
@@ -412,7 +420,11 @@ RSpec.describe 'Contacts' do
   it "can get all notes for a contact" do
     stub_request(:get, "#{base_url}/contacts/#{contact_id}/notes").
       with( headers: headers).
-      to_return(status: 200, body: get_contact_notes_response)
+      to_return(
+        status: 200,
+        body: get_contact_notes_response,
+        headers: headers,
+      )
     frontapp.get_contact_notes(contact_id)
   end
 

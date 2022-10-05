@@ -192,14 +192,22 @@ RSpec.describe 'Links' do
   it "can get all link conversations" do
     stub_request(:get, "#{base_url}/links/#{link_id}/conversations").
       with( headers: headers).
-      to_return(status: 200, body: link_conversations_response)
+      to_return(
+        status: 200,
+        body: link_conversations_response,
+        headers: headers,
+      )
     frontapp.get_link_conversations(link_id)
   end
 
   it "can list links" do
     stub_request(:get, "#{base_url}/links").
       with( headers: headers).
-      to_return(status: 200, body: links_response)
+      to_return(
+        status: 200,
+        body: links_response,
+        headers: headers,
+      )
     frontapp.links
   end
 

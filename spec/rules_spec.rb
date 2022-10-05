@@ -43,7 +43,11 @@ RSpec.describe 'Rules' do
   it "can get all rules" do
     stub_request(:get, "#{base_url}/rules").
       with( headers: headers).
-      to_return(status: 200, body: all_rules_response)
+      to_return(
+        status: 200,
+        body: all_rules_response,
+        headers: headers,
+      )
     frontapp.rules
   end
 

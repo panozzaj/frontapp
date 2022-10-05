@@ -90,7 +90,11 @@ RSpec.describe 'Contact Groups' do
   it "can get all contact groups" do
     stub_request(:get, "#{base_url}/contact_groups").
       with( headers: headers).
-      to_return(status: 200, body: all_contact_groups_response)
+      to_return(
+        status: 200,
+        body: all_contact_groups_response,
+        headers: headers,
+      )
     frontapp.contact_groups
   end
 

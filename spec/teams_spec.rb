@@ -71,7 +71,11 @@ RSpec.describe 'Teams' do
   it "can get all teams" do
     stub_request(:get, "#{base_url}/teams").
       with( headers: headers).
-      to_return(status: 200, body: all_teams_response)
+      to_return(
+        status: 200,
+        body: all_teams_response,
+        headers: headers,
+      )
     frontapp.teams
   end
 

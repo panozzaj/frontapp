@@ -86,7 +86,11 @@ RSpec.describe 'Exports' do
   it "can get all exports" do
     stub_request(:get, "#{base_url}/exports").
       with( headers: headers).
-      to_return(status: 200, body: all_exports_response)
+      to_return(
+        status: 200,
+        body: all_exports_response,
+        headers: headers,
+      )
     frontapp.exports
   end
 

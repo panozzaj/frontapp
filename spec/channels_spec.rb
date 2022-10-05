@@ -81,15 +81,22 @@ RSpec.describe 'Channels' do
 
   it "can get all channels" do
     stub_request(:get, "#{base_url}/channels").
-      with( headers: headers).
-      to_return(status: 200, body: all_channels_response)
+      with(headers: headers).
+      to_return(
+        status: 200,
+        body: all_channels_response,
+        headers: headers,
+      )
     frontapp.channels
   end
 
   it "can get a specific channel" do
     stub_request(:get, "#{base_url}/channels/#{channel_id}").
       with( headers: headers).
-      to_return(status: 200, body: get_channel_response)
+      to_return(
+        status: 200,
+        body: get_channel_response
+      )
     frontapp.get_channel(channel_id)
   end
 

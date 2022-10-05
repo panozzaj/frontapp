@@ -330,7 +330,11 @@ RSpec.describe 'Events' do
   it "can get all events" do
     stub_request(:get, "#{base_url}/events").
       with( headers: headers).
-      to_return(status: 200, body: all_events_response)
+      to_return(
+        status: 200,
+        body: all_events_response,
+        headers: headers,
+      )
     frontapp.events
   end
 

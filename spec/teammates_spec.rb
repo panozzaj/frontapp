@@ -203,7 +203,11 @@ RSpec.describe 'Teammates' do
   it "can get all teammates" do
     stub_request(:get, "#{base_url}/teammates").
       with( headers: headers).
-      to_return(status: 200, body: all_teammates_response)
+      to_return(
+        status: 200,
+        body: all_teammates_response,
+        headers: headers,
+      )
     frontapp.teammates
   end
 
@@ -231,7 +235,11 @@ RSpec.describe 'Teammates' do
   it "can get all conversations assigned to a teammate" do
     stub_request(:get, "#{base_url}/teammates/#{teammate_id}/conversations").
       with( headers: headers).
-      to_return(status: 200, body: get_teammate_conversations_response)
+      to_return(
+        status: 200,
+        body: get_teammate_conversations_response,
+        headers: headers,
+      )
     frontapp.get_teammate_conversations(teammate_id)
   end
 

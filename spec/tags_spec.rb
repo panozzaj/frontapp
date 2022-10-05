@@ -178,7 +178,11 @@ RSpec.describe 'Tags' do
   it "can get all tags" do
     stub_request(:get, "#{base_url}/tags").
       with( headers: headers).
-      to_return(status: 200, body: all_tags_response)
+      to_return(
+        status: 200,
+        body: all_tags_response,
+        headers: headers,
+      )
     frontapp.tags
   end
 
@@ -197,19 +201,22 @@ RSpec.describe 'Tags' do
       to_return(status: 201, body: create_tag_response)
     frontapp.create_tag!(data)
   end
-  
+
   it "can delete a tag" do
     stub_request(:delete, "#{base_url}/tags/#{tag_id}").
       with( headers: headers).
       to_return(status: 204, body: nil)
     frontapp.delete_tag!(tag_id)
   end
-  
 
   it "can get all tag conversations" do
     stub_request(:get, "#{base_url}/tags/#{tag_id}/conversations").
       with( headers: headers).
-      to_return(status: 200, body: tag_conversations_response)
+      to_return(
+        status: 200,
+        body: tag_conversations_response,
+        headers: headers,
+      )
     frontapp.get_tag_conversations(tag_id)
   end
 end

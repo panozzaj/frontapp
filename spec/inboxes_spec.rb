@@ -234,7 +234,11 @@ RSpec.describe 'Inboxes' do
   it "can get all inboxes" do
     stub_request(:get, "#{base_url}/inboxes").
       with( headers: headers).
-      to_return(status: 200, body: all_inboxes_response)
+      to_return(
+        status: 200,
+        body: all_inboxes_response,
+        headers: headers,
+      )
     frontapp.inboxes
   end
 
@@ -267,7 +271,11 @@ RSpec.describe 'Inboxes' do
   it "can get all conversations in an inbox" do
     stub_request(:get, "#{base_url}/inboxes/#{inbox_id}/conversations").
       with( headers: headers).
-      to_return(status: 200, body: get_inbox_conversations_response)
+      to_return(
+        status: 200,
+        body: get_inbox_conversations_response,
+        headers: headers,
+      )
     frontapp.get_inbox_conversations(inbox_id)
   end
 
