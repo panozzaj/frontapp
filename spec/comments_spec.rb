@@ -37,7 +37,7 @@ RSpec.describe 'Comments' do
 }
     }
   }
-  let(:get_conversation_comments_resonse) {
+  let(:get_conversation_comments_response) {
     %Q{
 {
   "_links": {
@@ -151,7 +151,7 @@ RSpec.describe 'Comments' do
   it "can get all comments of a conversation" do
     stub_request(:get, "#{base_url}/conversations/#{conversation_id}/comments").
       with( headers: headers).
-      to_return(status: 200, body: get_conversation_comments_resonse)
+      to_return(status: 200, body: get_conversation_comments_response)
     frontapp.get_conversation_comments(conversation_id)
   end
 
